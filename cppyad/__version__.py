@@ -12,10 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-__all__ = [
-    'AD', 'ADFun', 'independent', 'is_variable', 'value', 'SparseJacobianWork',
-    'SparseHessianWork', 'build_adfun_from_model'
-]
-
-from ._core import *  # noqa: F403
-from .pyomo import build_adfun_from_model
+__version__ = '0.1.0'
+__author__ = 'Francesco Ceccon'
+__author_email__ = 'francesco@ceccon.me'
+__description__ = 'Python bindings to Coin-OR CppAD'
+__license__ = 'Apache 2.0'
+__copyright__ = 'Copyright 2020 Francesco Ceccon'

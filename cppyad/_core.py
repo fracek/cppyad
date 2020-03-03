@@ -12,10 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from cppyad_core import *  # noqa: F403
+
 __all__ = [
     'AD', 'ADFun', 'independent', 'is_variable', 'value', 'SparseJacobianWork',
-    'SparseHessianWork', 'build_adfun_from_model'
+    'SparseHessianWork'
 ]
-
-from ._core import *  # noqa: F403
-from .pyomo import build_adfun_from_model
