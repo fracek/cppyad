@@ -19,10 +19,14 @@ from pyomo.core.expr.current import nonpyomo_leaf_types
 from pyomo.core.expr.visitor import ExpressionValueVisitor
 
 
-def build_adfun_from_model(model, active=True):
+def build_adfun_from_model(model, active=True, sort=False, descend_into=True):
     variables = list(
-        model.component_data_objects(pe.Var, active=active, descend_into=True)
+        model.component_data_objects(pe.Var, active=active, descend_into=descend_into, sort=sort)
     )
+    pyomo_var_to_ipopt_idx = pe.ComponentMap()
+    for i, var in enumerate(variables):
+        pyomo_var_to_ipopt_idx[var] = i
+
     ad_variables = independent([0.0] * len(variables))
     var_to_ad_map = pe.ComponentMap()
     var_to_idx_map = pe.ComponentMap()
@@ -98,6 +102,7 @@ def build_adfun_from_model(model, active=True):
         x_ub,
         g_lb,
         g_ub,
+        pyomo_var_to_ipopt_idx,
     )
 
 
@@ -117,6 +122,6 @@ class ADFunBuilderVisitor(ExpressionValueVisitor):
             return True, self._var_map[node]
 
         if not node.is_expression_type():
-            raise ValueError("??", node)
+            return True, node.value
 
         return False, None

@@ -17,7 +17,7 @@ def model():
 
 
 def test_build_adfun(model):
-    adfun, nx, nf, ng, x_init, x_lb, x_ub, g_lb, g_ub = \
+    adfun, nx, nf, ng, x_init, x_lb, x_ub, g_lb, g_ub, _ = \
         build_adfun_from_model(model, active=True)
     assert nx == 2
     assert nf == 1
