@@ -53,6 +53,7 @@ bool is_variable(const CppAD::AD<U>& x) {
 template<class U>
 void init_module(py::module m) {
   py::class_<CppAD::AD<U>>(m, "AD")
+    .def(py::init<const U &>())
     .def(+py::self)
     .def(-py::self)
     .def(py::self *= py::self)
