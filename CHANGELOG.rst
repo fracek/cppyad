@@ -1,6 +1,12 @@
 Changelog
 =========
 
+0.2.1
+-----
+
+ * Fix when pyomo expression is constant
+
+
 0.2.0
 -----
 
