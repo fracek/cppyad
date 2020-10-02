@@ -49,6 +49,11 @@ bool is_variable(const CppAD::AD<U>& x) {
   return CppAD::Variable(x);
 }
 
+template<class U>
+CppAD::AD<U> exp(const CppAD::AD<U>& x) {
+  return CppAD::exp(x);
+}
+
 
 template<class U>
 void init_module(py::module m) {
@@ -80,7 +85,7 @@ void init_module(py::module m) {
     .def(py::self >= py::self)
     .def(py::self != py::self)
     .def("__pow__",
-	 [](const CppAD::AD<U>& v, U e) {
+	 [](const CppAD::AD<U>& v, const CppAD::AD<U>& e) {
 	   return CppAD::pow(v, e);
 	 })
     .def("__str__",
@@ -108,6 +113,7 @@ void init_module(py::module m) {
   m.def("value", &value<U>);
   m.def("is_variable", &is_variable<U>);
 
+  m.def("exp", &exp<U>);
 }
 
 

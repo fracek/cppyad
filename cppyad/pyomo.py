@@ -14,7 +14,7 @@
 
 import numpy as np
 import pyomo.environ as pe
-from cppyad._core import independent, AD, ADFun
+from cppyad._core import independent, AD, ADFun, exp
 from pyomo.core.expr.current import nonpyomo_leaf_types
 from pyomo.core.expr.visitor import ExpressionValueVisitor
 
@@ -112,6 +112,9 @@ class ADFunBuilderVisitor(ExpressionValueVisitor):
         self._var_map = var_map
 
     def visit(self, node, values):
+        if isinstance(node, pe.current.UnaryFunctionExpression):
+            assert node.name == 'exp'
+            return exp(values[0])
         return node._apply_operation(values)
 
     def visiting_potential_leaf(self, node):
@@ -120,6 +123,9 @@ class ADFunBuilderVisitor(ExpressionValueVisitor):
 
         if node.is_variable_type():
             return True, self._var_map[node]
+
+        if type(node) == pe.current.NumericConstant:
+            return True, AD(node.value)
 
         if not node.is_expression_type():
             return True, AD(node.value)

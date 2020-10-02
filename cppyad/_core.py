@@ -16,5 +16,5 @@ from cppyad_core import *  # noqa: F403
 
 __all__ = [
     'AD', 'ADFun', 'independent', 'is_variable', 'value', 'SparseJacobianWork',
-    'SparseHessianWork'
+    'SparseHessianWork', 'exp'
 ]
